@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Picom Configuration
+GenericName=Picom Configuration
+Comment=Configure Picom window effects
+TryExec=picom-conf-gtk
+Exec=picom-conf-gtk
+Icon=picom-conf
+Categories=Settings;DesktopSettings;
