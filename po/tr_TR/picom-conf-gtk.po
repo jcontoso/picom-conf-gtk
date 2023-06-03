@@ -1,0 +1,587 @@
+# Turkish translations for PACKAGE package.
+# Copyright (C) 2023 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# user <user@debian>, 2023.
+#
+msgid ""
+msgstr ""
+"testProject-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-30 12:05-0500\n"
+"PO-Revision-Date: 2023-06-03 10:52-0400\n"
+"Last-Translator: user <user@debian>\n"
+"Language-Team: Turkish <gnome-turk@gnome.org>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: \n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: ui.c:355 ui.c:3306
+msgid "Error"
+msgstr "Hata"
+
+#: ui.c:616
+msgid "Blurring"
+msgstr "Bulanıklaştırma"
+
+#: ui.c:632
+msgid "Enable window background blurring"
+msgstr "Pencere arka planını bulanıklaştır"
+
+#: ui.c:634
+msgid "Enable semi-transparent window background blurring"
+msgstr "Yarı saydam pencerelerin arka planını bulanıklaştırmayı etkinleştir"
+
+#: ui.c:635
+msgid "Enable window background blurring when the frame is not opaque"
+msgstr ""
+"Çerçeve opak olmadığında pencere arka planını bulanıklaştırmayı etkinleştir"
+
+#: ui.c:636
+msgid "Use a fixed blurring strength"
+msgstr "Sabit bir bulanıklık gücü kullan"
+
+#: ui.c:657
+msgid "Blurring method"
+msgstr "Bulanıklaştırma yöntemi"
+
+#: ui.c:689
+msgid "Convolution blurring kernel"
+msgstr "Evrişim bulanıklaştırma çekirdeği"
+
+#: ui.c:698
+msgid "Custom"
+msgstr "Özel"
+
+#: ui.c:738
+msgid "Custom convolution blurring kernel"
+msgstr "Özel evrişim bulanıklaştırma çekirdeği"
+
+#: ui.c:757
+msgid "Size"
+msgstr "Büyüklük"
+
+#: ui.c:771
+msgid "Gaussian blurring deviation size"
+msgstr "Gauss bulanıklığında sapma büyüklüğü"
+
+#: ui.c:790 ui.c:1576 ui.c:2144 ui.c:2386
+msgid "Exclusion rules"
+msgstr "Hariç tutma kuralları"
+
+#: ui.c:1080
+msgid "Override editor"
+msgstr "Zorlama durumları düzenleyicisi"
+
+#: ui.c:1097
+msgid "Fading"
+msgstr "Soldurma"
+
+#: ui.c:1107 ui.c:1138 ui.c:1168 ui.c:1198 ui.c:1228 ui.c:1258
+msgid "Do not override"
+msgstr "Zorlama"
+
+#: ui.c:1108 ui.c:1139 ui.c:1169 ui.c:1199 ui.c:1229 ui.c:1259
+msgid "Force enable"
+msgstr "Zorla aç"
+
+#: ui.c:1109 ui.c:1140 ui.c:1170 ui.c:1200 ui.c:1230 ui.c:1260
+msgid "Force disable"
+msgstr "Zorla kapat"
+
+#: ui.c:1128
+msgid "Shadows"
+msgstr "Gölgeler"
+
+#: ui.c:1158
+msgid "Full shadow drawing"
+msgstr "Tam gölge çizme"
+
+#: ui.c:1188
+msgid "Shadow clipping"
+msgstr "Gölge kırkma"
+
+#: ui.c:1218
+msgid "Ignore redirects"
+msgstr "Yönlendirmeleri yoksay"
+
+#: ui.c:1248
+msgid "Force focused state"
+msgstr "Odaklı durum zorla"
+
+#: ui.c:1278 ui.c:1618
+msgid "Opacity"
+msgstr "Opaklık"
+
+#: ui.c:1288
+msgid "Override"
+msgstr "Zorla"
+
+#: ui.c:1327 ui.c:1460 ui.c:1972
+msgid "Apply"
+msgstr "Uygula"
+
+#: ui.c:1333 ui.c:1466 ui.c:1981 ui.c:3180 ui.c:3214
+msgid "Cancel"
+msgstr "İptal"
+
+#: ui.c:1433
+msgid "Condition editor"
+msgstr "Koşul düzenleyici"
+
+#: ui.c:1478
+msgid "Add"
+msgstr "Ekle"
+
+#: ui.c:1484
+msgid "Remove"
+msgstr "Çıkart"
+
+#: ui.c:1505
+msgid "Overrides"
+msgstr "Zorlama durumları"
+
+#: ui.c:1515
+msgid "Window types"
+msgstr "Pencere türleri"
+
+#: ui.c:1529 ui.c:1580 ui.c:3028 ui.c:3056
+msgid "Edit"
+msgstr "Değiştir"
+
+#: ui.c:1544
+msgid "Corners"
+msgstr "Köşeler"
+
+#: ui.c:1554
+msgid "Round the corners of windows"
+msgstr "Pencerelerin köşelerini yuvarla"
+
+#: ui.c:1563
+msgid "Corner radius"
+msgstr "Köşe yarıçapı"
+
+#: ui.c:1628
+msgid "Let windows set their own inactive opacity values"
+msgstr "Pencereler kendi etkin olmayan opaklık değerlerini ayarlasın"
+
+#: ui.c:1640
+msgid "Window frame opacity"
+msgstr "Pencere çerçevesi opaklığı"
+
+#: ui.c:1654
+msgid "Inactive window opacity"
+msgstr "Etkin olmayan pencere opaklığı"
+
+#: ui.c:1668
+msgid "Active window opacity"
+msgstr "Etkin pencere opaklığı"
+
+#: ui.c:1682
+msgid "Inactive window dimming"
+msgstr "Etkin olmayan pencere karartma"
+
+#: ui.c:1696
+msgid "Opacity rules"
+msgstr "Opaklık kuralları"
+
+#: ui.c:1835
+msgid "Shadow cropping region editor"
+msgstr "Gölge kırpma bölgesi düzenleyicisi"
+
+#: ui.c:1841
+msgid "Enable"
+msgstr "Etkinleştir"
+
+#: ui.c:1868
+msgid "Position"
+msgstr "Konum"
+
+#: ui.c:1874
+msgid "Upper left corner"
+msgstr "Sol üst köşe"
+
+#: ui.c:1876
+msgid "Upper right corner"
+msgstr "Sağ üst köşe"
+
+#: ui.c:1877
+msgid "Lower left corner"
+msgstr "Sol alt köşe"
+
+#: ui.c:1878
+msgid "Lower right corner"
+msgstr "Sag alt köşe"
+
+#: ui.c:1909
+msgid "Height"
+msgstr "Yükseklik"
+
+#: ui.c:1925
+msgid "X offset"
+msgstr "X ofseti"
+
+#: ui.c:1941
+msgid "Y offset"
+msgstr "Y ofseti"
+
+#: ui.c:2028
+msgid "Shadow"
+msgstr "Gölge"
+
+#: ui.c:2038
+msgid "Enable client-side shadows on windows"
+msgstr "Pencerelerde gölgeleri etkinleştir"
+
+#: ui.c:2045
+msgid "Crop shadows of maximized windows from extended displays"
+msgstr "Pencerelerin gölgelerini genişletilmiş ekranlardan kırpın"
+
+#: ui.c:2057
+msgid "Blur radius"
+msgstr "Bulanıklık yarıçapı"
+
+#: ui.c:2071
+msgid "Left offset"
+msgstr "Sol ofset"
+
+#: ui.c:2085
+msgid "Top offset"
+msgstr "Üst ofset"
+
+#: ui.c:2099
+msgid "Translucency"
+msgstr "Saydamlık"
+
+#: ui.c:2132
+msgid "Color"
+msgstr "Renk"
+
+#: ui.c:2158
+msgid "Shadow clipping rules"
+msgstr "Gölge kırkım kuralları"
+
+#: ui.c:2172
+msgid "Cropping region"
+msgstr "Kırpma alanı"
+
+#: ui.c:2316
+msgid "Fade"
+msgstr "Soldurma"
+
+#: ui.c:2326
+msgid "Fade windows during opacity changes"
+msgstr "Opaklık değişiklikleri sırasında pencereleri soldur"
+
+#: ui.c:2328
+msgid "Avoid fading windows in/out when opening/closing"
+msgstr "Pencereler açılırken söndürmekten ve açmaktan kaçın"
+
+#: ui.c:2333
+msgid "Avoid fading destroyed ARGB windows in/out (workaround)"
+msgstr "Yok edilen ARGB pencerelerini söndürmekten ve açmaktan kaçın"
+
+#: ui.c:2345
+msgid "Milliseconds between steps"
+msgstr "Adımlar arasındaki milisaniyeler"
+
+#: ui.c:2359
+msgid "Change amount between steps while fading in"
+msgstr "Açılma sırasında adımlar arasındaki değişim miktarı"
+
+#: ui.c:2373
+msgid "Change amount between steps while fading out"
+msgstr "Sönüşüm sırasında adımlar arasındaki değişim miktarı"
+
+#: ui.c:2584
+msgid "Rendering"
+msgstr "Çizme"
+
+#: ui.c:2594
+msgid "Use vertical synchronization"
+msgstr "Dikey senkronizasyon kullan"
+
+#: ui.c:2595
+msgid "Use XSync to sync drawing operations"
+msgstr "Çizim işlemlerini senkronize etmek için XSync'i kullan"
+
+#: ui.c:2596
+msgid "Redraw the screen every time"
+msgstr "Her zaman ekranı yeniden çiz"
+
+#: ui.c:2597
+msgid "Force all windows to be drawn with blending"
+msgstr "Tüm pencereleri karıştırma ile çizilmeye zorla"
+
+#: ui.c:2632
+msgid "Backend"
+msgstr "Arkayüz"
+
+#: ui.c:2642
+msgid "Hybrid (XRender/OpenGL)"
+msgstr "Hibrit (XRender/OpenGL)"
+
+#: ui.c:2658
+msgid "Color inversion rules"
+msgstr "Renk ters çevirme kuralları"
+
+#: ui.c:2675
+msgid "Use a higher color depth during rendering"
+msgstr "Çizerken daha yüksek bir renk derinliği kullan"
+
+#: ui.c:2676
+msgid "Use stencil buffering"
+msgstr "Şablon arabelleğe almayı kullan"
+
+#: ui.c:2677
+msgid "Rebind pixmaps when a window is damaged"
+msgstr "Bir pencere değiştiğinde piksel haritalarını yeniden bağla"
+
+#: ui.c:2678
+msgid "Make transparent windows clip other windows"
+msgstr "Saydam pencerelerin diğer pencereleri kırpmasını sağla"
+
+#: ui.c:2711
+msgid "Transparent window clipping rules"
+msgstr "Şeffaf pencere kırkım kuralları"
+
+#: ui.c:2725
+msgid "Max window brightness"
+msgstr "Maksimum pencere parlaklığı"
+
+#: ui.c:2739
+msgid "Window rendering shader"
+msgstr "Pencere çizme gölgelendiricisi"
+
+#: ui.c:2751
+msgid "Per-window shader rules"
+msgstr "Pencere tabanlı gölgelendirici kuralları"
+
+#: ui.c:2918
+msgid "Window detection"
+msgstr "Pencere alıglama"
+
+#: ui.c:2928
+msgid "Window grouping"
+msgstr "Pencere gruplama"
+
+#: ui.c:2938
+msgid "Do not group windows"
+msgstr "Asla gruplama"
+
+#: ui.c:2939
+msgid "Use the 'WM_TRANSIENT_FOR' hint for grouping"
+msgstr "Gruplama için 'WM_TRANSIENT_FOR' ipucusunu kullan"
+
+#: ui.c:2940
+msgid "Use the 'WM_CLIENT_LEADER' hint for grouping"
+msgstr "Gruplama için 'WM_CLIENT_LEADER' ipucusunu kullan"
+
+#: ui.c:2961
+msgid "Try to detect WM windows and mark them as active"
+msgstr "WM pencerelerini algılamaya çalışarak onları aktif olarak işaretle"
+
+#: ui.c:2962
+msgid ""
+"Mark override-redirect windows that doesn't have a child window with "
+"'WM_STATE' focused"
+msgstr ""
+"Odaklanmış alt penceresi  olmayan \"override-redirect\" pencerelerini "
+"işaretle"
+
+#: ui.c:2963
+msgid ""
+"Try to detect windows with rounded corners and don't consider them shaped "
+"windows"
+msgstr ""
+"Köşeleri yuvarlatılmış pencereleri algılamaya çalışarak şekilli pencereler "
+"olarak düşünme"
+
+#: ui.c:2964
+msgid "Detect the '_NET_WM_WINDOW_OPACITY' hint on client windows"
+msgstr "İstemci pencerelerinde '_NET_WM_WINDOW_OPACITY' ipucunu algıla"
+
+#: ui.c:2965
+msgid ""
+"Use the '_NET_ACTIVE_WINDOW' hint to determine the currently focused window"
+msgstr ""
+"Odaklanmış olan pencereyi bulmak için '_NET_ACTIVE_WINDOW' ipucusunu kullan"
+
+#: ui.c:2966
+msgid "Do not use EWMH hints to detect fullscreen windows"
+msgstr "Tam ekran pencereleri bulmak için EWMH ipucularını kullanma"
+
+#: ui.c:2967
+msgid "Unredirect all windows if a full-screen opaque window is detected"
+msgstr ""
+"Bir tam ekran opak pencere bulunursa bütün pencereleri yeniden yönlendirme"
+
+#: ui.c:3010
+msgid "Window unredirection delay"
+msgstr "Pencere yeniden yönlendirmeme gecikmesi"
+
+#: ui.c:3024
+msgid "Window unredirection rules"
+msgstr "Pencere yeniden yönlendirmeme kuralları"
+
+#: ui.c:3038
+msgid "Custom damaged region margins"
+msgstr "Yeniden çizilmesi gereken bölgeler için özel marjinler"
+
+#: ui.c:3052
+msgid "Windows focus conditions"
+msgstr "Pencere odak durumları"
+
+#: ui.c:3180 ui.c:3214
+msgid "Select File"
+msgstr "Dosya Seç"
+
+#: ui.c:3180 ui.c:3214
+msgid "Select"
+msgstr "Seç"
+
+#: ui.c:3243
+msgid "Miscellaneous"
+msgstr "Diğer ayarlar"
+
+#: ui.c:3253
+msgid "Enable remote control via D-Bus"
+msgstr "D-Bus üzerinden uzaktan kumandayı etkinleştir"
+
+#: ui.c:3254
+msgid "Fork to background after initialization"
+msgstr "Başladıktan sonra arka plana geç"
+
+#: ui.c:3255
+msgid "Show all X errors"
+msgstr "Bütün X11 hatalarını göster"
+
+#: ui.c:3256
+msgid "Write logs to a file"
+msgstr "Logları bir dosyaya yaz"
+
+#: ui.c:3257
+msgid "Write the process ID to a file"
+msgstr "Görev numarasını bir dosyaya yaz"
+
+#: ui.c:3296
+msgid "Logging level"
+msgstr "Log yapma seviyesi"
+
+#: ui.c:3302
+msgid "Trace"
+msgstr "İz ver"
+
+#: ui.c:3303
+msgid "Debug"
+msgstr "Hata ayıklama bilgisi ver"
+
+#: ui.c:3304
+msgid "Info"
+msgstr "Bilgi ver"
+
+#: ui.c:3305
+msgid "Warn"
+msgstr "Uyarı ver"
+
+#: ui.c:3325
+msgid "Log file"
+msgstr "Log dosyası"
+
+#: ui.c:3335 ui.c:3366
+msgid "Browse"
+msgstr "Gözat"
+
+#: ui.c:3356
+msgid "Process ID file"
+msgstr "Görev numarası dosyası"
+
+#: ui.c:3410
+msgid "picom-conf-gtk is a simple graphical tool for configuring picom."
+msgstr "Picom'u ayarlamak için bir program."
+
+#: ui.c:3592
+msgid "Picom Configuration"
+msgstr "Picom Yapılandırması"
+
+#: blurring_page_pm_friendlynames
+msgid "Gaussian"
+msgstr "Gauss"
+
+msgid "Box"
+msgstr "Kutu"
+
+msgid "Convolution"
+msgstr "Evrişim"
+
+msgid "Dual kawase"
+msgstr "Çift kawase"
+
+msgid "About"
+msgstr "Hakkında"
+
+#: window_type_specific_overrides_types_friendlynames
+msgid "Unknown"
+msgstr "Bilinmeyen"
+
+msgid "Desktop"
+msgstr "Masaüstü"
+
+msgid "Dock"
+msgstr "Dock"
+
+msgid "Toolbar"
+msgstr "Araç çubuğu"
+
+msgid "Menu"
+msgstr "Menü"
+
+msgid "Utility"
+msgstr "Yardımcı"
+
+msgid "Splash"
+msgstr "Açılış ekranı"
+
+msgid "Dialog"
+msgstr "Diyalog"
+
+msgid "Normal"
+msgstr "Sıradan"
+
+msgid "Dropdown menu"
+msgstr "Aşağıya doğru açılan menü"
+
+msgid "Tooltip"
+msgstr "İpucu"
+
+msgid "Popup menu"
+msgstr "Açılır menü"
+
+msgid "Notification"
+msgstr "Bildiri"
+
+msgid "Combo"
+msgstr "Birleşik"
+
+msgid "Drag and drop"
+msgstr "Sürükle ve bırak"
+
+#: config.c:39
+#, c-format
+msgid "Config load failed: %s (%s:%d)\n"
+msgstr ""
+"Ayarlama dosyasını okurken bir hata oluştu. (%s, %s:%d)\n"
+"\n"
+
+#: config.c:43
+#, c-format
+msgid "Config load failed: %s (%s)\n"
+msgstr "Ayarlama dosyasını okurken bir hata oluştu. (%s, %s)\n"
+
+#: config.c:48
+#, c-format
+msgid "Config save failed: %s (%s:%d)\n"
+msgstr "Ayarlama dosyasını kaydederken bir hata oluştu. (%s, %s:%d)\n"

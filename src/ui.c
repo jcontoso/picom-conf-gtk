@@ -1863,7 +1863,7 @@ void create_shadow_page_ser_window(GtkWidget *widget, gpointer data)
     printf("%d\n", shadow_ser_preview_se_geo.x);
     gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_adj_grid), shadow_page_shadow_exclude_h_label, 0, 1, 1, 1);
     gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_adj_grid), shadow_page_shadow_exclude_h, 1, 1, 1, 1);
-    g_signal_connect(shadow_page_shadow_exclude_h, "changed", G_CALLBACK(ser_on_change), NULL);
+    g_signal_connect(shadow_page_shadow_exclude_h, "value-changed", G_CALLBACK(ser_on_change), NULL);
 
     // xoff control
     shadow_page_shadow_exclude_x_label = gtk_label_new(_("X offset"));
@@ -1876,7 +1876,7 @@ void create_shadow_page_ser_window(GtkWidget *widget, gpointer data)
     gtk_widget_set_margin_start(shadow_page_shadow_exclude_x, 100);
     gtk_widget_set_margin_end(shadow_page_shadow_exclude_x, 8);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(shadow_page_shadow_exclude_x), shadow_ser_preview_se_geo.y);
-    g_signal_connect(shadow_page_shadow_exclude_x, "changed", G_CALLBACK(ser_on_change), NULL);
+    g_signal_connect(shadow_page_shadow_exclude_x, "value-changed", G_CALLBACK(ser_on_change), NULL);
 
     gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_adj_grid), shadow_page_shadow_exclude_x_label, 0, 2, 1, 1);
     gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_adj_grid), shadow_page_shadow_exclude_x, 1, 2, 1, 1);
@@ -1893,7 +1893,7 @@ void create_shadow_page_ser_window(GtkWidget *widget, gpointer data)
     gtk_widget_set_margin_start(shadow_page_shadow_exclude_y, 100);
     gtk_widget_set_margin_end(shadow_page_shadow_exclude_y, 8);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(shadow_page_shadow_exclude_y), shadow_ser_preview_se_geo.z);
-    g_signal_connect(shadow_page_shadow_exclude_y, "changed", G_CALLBACK(ser_on_change), NULL);
+    g_signal_connect(shadow_page_shadow_exclude_y, "value-changed", G_CALLBACK(ser_on_change), NULL);
 
     gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_adj_grid), shadow_page_shadow_exclude_y_label, 0, 3, 1, 1);
     gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_adj_grid), shadow_page_shadow_exclude_y, 1, 3, 1, 1);
@@ -3537,7 +3537,8 @@ void create_window()
 {
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), _("Picom Configuration"));
-
+	gtk_window_set_icon_name(GTK_WINDOW(window), "picom-conf");
+	
     box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     gtk_container_add(GTK_CONTAINER(window), box);
 

@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     bindtextdomain("picom-conf-gtk", "/usr/share/locale");
     bind_textdomain_codeset("picom-conf-gtk", "UTF-8");
     textdomain("picom-conf-gtk");
+    
     gtk_init(&argc, &argv);
     init_config();
     open_config_file(); 
