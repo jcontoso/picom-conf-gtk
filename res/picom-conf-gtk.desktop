@@ -1,8 +1,11 @@
 [Desktop Entry]
 Type=Application
 Name=Picom Configuration
+Name[tr]=Picom Yapılandırması
 GenericName=Picom Configuration
+GenericName[tr]=Picom Yapılandırması
 Comment=Configure Picom window effects
+Comment[tr]=Pencere efektlerini yapılandırın
 TryExec=picom-conf-gtk
 Exec=picom-conf-gtk
 Icon=picom-conf
