@@ -3536,8 +3536,8 @@ void create_window_buttons()
 void create_window()
 {
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), _("Picom Configuration"));
-	gtk_window_set_icon_name(GTK_WINDOW(window), "picom-conf");
+    gtk_window_set_title(GTK_WINDOW(window), _("Picom Configuration")); 
+    gtk_window_set_icon_name(GTK_WINDOW(window), "picom-conf");
 	
     box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     gtk_container_add(GTK_CONTAINER(window), box);
@@ -3548,7 +3548,7 @@ void create_window()
     gtk_widget_set_margin_top(notebook, 8);
     gtk_widget_set_margin_start(notebook, 8);
     gtk_widget_set_margin_end(notebook, 8);
-	//gtk_notebook_set_scrollable(GTK_NOTEBOOK(notebook), TRUE);
+    //gtk_notebook_set_scrollable(GTK_NOTEBOOK(notebook), TRUE);
 
     create_shadow_page();
     create_opacity_page();
@@ -3578,6 +3578,7 @@ void create_window()
 
     gtk_window_resize(GTK_WINDOW(window), 2, 2);
     g_signal_connect(G_OBJECT(notebook), "switch-page", G_CALLBACK(switch_page), G_OBJECT(window));
+    g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL);
     gtk_window_set_resizable(GTK_WINDOW(window), FALSE);
     c_config = 1;
 }
