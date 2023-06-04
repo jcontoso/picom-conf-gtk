@@ -261,8 +261,8 @@ msgid "Color"
 msgstr "Renk"
 
 #: ui.c:2158
-msgid "Shadow clipping rules"
-msgstr "Gölge kırkım kuralları"
+msgid "Clipping rules"
+msgstr "Kırkım kuralları"
 
 #: ui.c:2172
 msgid "Cropping region"
