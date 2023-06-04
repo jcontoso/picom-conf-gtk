@@ -258,7 +258,7 @@ msgid "Color"
 msgstr ""
 
 #: ui.c:2158
-msgid "Shadow clipping rules"
+msgid "Clipping rules"
 msgstr ""
 
 #: ui.c:2172
