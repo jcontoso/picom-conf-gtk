@@ -3353,7 +3353,7 @@ void show_about_dialog(GtkWidget *widget, gpointer data)
     GtkWidget *dialog = gtk_about_dialog_new();
     gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(dialog), "picom-conf-gtk");
     gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(dialog), "1.0");
-    gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "(c) Jason Contoso");
+    gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(dialog), "© Jason Contoso");
     gtk_about_dialog_set_comments(GTK_ABOUT_DIALOG(dialog), _("picom-conf-gtk is a simple graphical tool for configuring picom."));
     gtk_about_dialog_set_logo_icon_name(GTK_ABOUT_DIALOG(dialog), "picom-conf");
 
