@@ -2099,7 +2099,7 @@ void create_shadow_page()
     gtk_grid_attach(GTK_GRID(shadow_page_spinnersandcolor_grid), shadow_page_exclude_button, 1, 5, 1, 1);
 
     // SHADOW PAINTING RULES
-    shadow_page_clip_over_label = gtk_label_new(_("Shadow clipping rules"));
+    shadow_page_clip_over_label = gtk_label_new(_("Clipping rules"));
     gtk_widget_set_margin_start(shadow_page_clip_over_label, 5);
     gtk_label_set_xalign(GTK_LABEL(shadow_page_clip_over_label), 0.0);
 
