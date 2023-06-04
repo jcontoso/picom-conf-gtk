@@ -15,8 +15,7 @@ po/tr_TR/$(PACKAGE).mo: po/tr_TR/$(PACKAGE).po
 	
 clean:
 	rm -f ${PACKAGE}
-	rm -f po/tr/$(PACKAGE).mo
-	rm -f po/fr/$(PACKAGE).mo
+	rm -f po/tr_TR/$(PACKAGE).mo
 		
 uninstall:
 	rm -f /usr/local/bin/picom-conf-gtk
