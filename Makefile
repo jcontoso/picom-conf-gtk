@@ -23,7 +23,7 @@ uninstall:
 	rm -f /usr/share/applications/picom-conf-gtk.desktop
 	rm -f /usr/share/locale/tr_TR/LC_MESSAGES/$(PACKAGE).mo
 
-install: ${PACKAGE}
+install: all
 	install -Dm0755 picom-conf-gtk /usr/local/bin/picom-conf-gtk
 	install -Dm0755 res/picom-conf-gtk.desktop /usr/share/applications/picom-conf-gtk.desktop
 	install -Dm0644 res/picom-conf.png /usr/share/icons/hicolor/64x64/apps/picom-conf.png
