@@ -520,6 +520,7 @@ void save_condition_edit_temp(GtkWidget *widget, const char *data)
     write_config_exclude_array_temp(condition_edit_temp_list, data);
     write_config_file();
     destroy_config();
+    gtk_widget_destroy(cedialog);
 }
 
 void create_condition_edit_temp_init_list(GtkWidget *list)
