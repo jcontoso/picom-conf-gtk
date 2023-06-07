@@ -260,6 +260,8 @@ GtkWidget *shadow_page_shadow_exclude_y_label;
 GtkWidget *shadow_page_shadow_exclude_x_label;
 GtkWidget *shadow_page_shadow_exclude_y;
 GtkWidget *shadow_page_shadow_exclude_x;
+GtkToolItem *add;
+GtkToolItem *cremove;
 GtkAdjustment *shadow_page_shadow_exclude_h_a;
 GtkAdjustment *shadow_page_shadow_exclude_x_a;
 GtkAdjustment *shadow_page_shadow_exclude_y_a;
@@ -459,10 +461,10 @@ void close_condition_edit_temp(GtkWidget *widget, gpointer data)
 
 void condition_edit_temp_changed(GtkEditable *self, gpointer user_data)
 {
-    gtk_widget_set_sensitive(pbtn, FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(add), FALSE);
     if (strcmp(gtk_entry_get_text(GTK_ENTRY(condition_edit_temp_ent)), "") != 0)
     {
-        gtk_widget_set_sensitive(pbtn, TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(add), TRUE);
     }
 }
 
@@ -470,11 +472,11 @@ void condition_edit_temp_on_changed(GtkWidget *widget, gpointer label)
 {
     GtkTreeIter iter;
     GtkTreeModel *model;
-    gtk_widget_set_sensitive(GTK_WIDGET(label), FALSE);
+    gtk_widget_set_sensitive(GTK_WIDGET(cremove), FALSE);
 
     if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(widget), &model, &iter))
     {
-        gtk_widget_set_sensitive(GTK_WIDGET(label), TRUE);
+        gtk_widget_set_sensitive(GTK_WIDGET(cremove), TRUE);
     }
 }
 
@@ -499,13 +501,13 @@ void create_condition_edit_temp_remove(GtkWidget *widget, gpointer selection)
 
     store = GTK_LIST_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(condition_edit_temp_list)));
     model = gtk_tree_view_get_model(GTK_TREE_VIEW(condition_edit_temp_list));
-
+	GtkTreeSelection* sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(condition_edit_temp_list));
     if (gtk_tree_model_get_iter_first(model, &iter) == FALSE)
     {
         return;
     }
 
-    if (gtk_tree_selection_get_selected(GTK_TREE_SELECTION(selection), &model, &iter))
+    if (gtk_tree_selection_get_selected(sel, &model, &iter))
     {
         gtk_list_store_remove(store, &iter);
     }
@@ -545,100 +547,76 @@ void create_condition_edit_temp(GtkWidget *widget, const char *type)
 {
     init_config();
     open_config_file();
-    GtkWidget *action_area;
     GtkWidget *content_area;
-    GtkWidget *dbox;
-    GtkWidget *hgrid;
-    GtkWidget *lgrid;
-    GtkWidget *mgrid;
-    GtkWidget *gbtn;
-    GtkWidget *kbtn;
     GtkWidget *scrollwin;
-
-    cedialog = gtk_dialog_new();
-    g_signal_connect_swapped(cedialog, "response", G_CALLBACK(gtk_widget_destroy), cedialog);
-    content_area = gtk_dialog_get_content_area(GTK_DIALOG(cedialog));
-    action_area = gtk_dialog_get_action_area(GTK_DIALOG(cedialog));
+	GtkWidget *toolbar;
+	GtkToolItem *textbox;
+	GtkToolItem *sep;
+	GtkToolItem *dapply;
+	GtkToolItem *dcancel;
+		
+    cedialog = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_resizable(GTK_WINDOW(cedialog), FALSE);
+    gtk_window_set_type_hint(GTK_WINDOW(cedialog),  GDK_WINDOW_TYPE_HINT_DIALOG);
     gtk_window_set_modal(GTK_WINDOW(cedialog), TRUE);
     gtk_window_set_transient_for(GTK_WINDOW(cedialog), GTK_WINDOW(window));
     gtk_window_set_title(GTK_WINDOW(cedialog), _("Condition editor"));
-	gtk_window_set_default_size (GTK_WINDOW (cedialog), 300, 100);
+	gtk_window_set_default_size (GTK_WINDOW (cedialog), 550, 240);
 	scrollwin = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollwin), GTK_POLICY_AUTOMATIC,  GTK_POLICY_AUTOMATIC);
+	gtk_widget_set_size_request(scrollwin, 550, 240);
 
-
-
-    dbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 8);
-    gtk_widget_set_margin_bottom(dbox, 5);
-    gtk_widget_set_margin_top(dbox, 5);
-    gtk_widget_set_margin_start(dbox, 18);
-    gtk_widget_set_margin_end(dbox, 15);
-	gtk_widget_set_size_request(dbox, 300, 200);
+	content_area = gtk_vbox_new(FALSE, 0);
 	
+	toolbar = gtk_toolbar_new();
+    gtk_style_context_add_class(gtk_widget_get_style_context(toolbar), GTK_STYLE_CLASS_PRIMARY_TOOLBAR);
+	gtk_toolbar_set_style(GTK_TOOLBAR(toolbar), GTK_TOOLBAR_BOTH_HORIZ);
+    gtk_box_pack_start(GTK_BOX(content_area), toolbar, FALSE, FALSE, 0);
+
+	textbox = gtk_tool_item_new();
+    condition_edit_temp_ent = gtk_entry_new();
+    g_signal_connect(G_OBJECT(condition_edit_temp_ent), "changed", G_CALLBACK(condition_edit_temp_changed), NULL);
+	gtk_container_add(GTK_CONTAINER(textbox), condition_edit_temp_ent);
+	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), textbox, -1);
+	
+	add = gtk_tool_button_new_from_stock(GTK_STOCK_ADD);
+	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), add, -1);
+	gtk_tool_item_set_is_important(add, TRUE);
+    gtk_widget_set_sensitive(GTK_WIDGET(add), FALSE);
+	g_signal_connect(G_OBJECT(add), "clicked", G_CALLBACK(create_condition_edit_temp_add), G_OBJECT(window));	 
+	
+ 	cremove = gtk_tool_button_new_from_stock(GTK_STOCK_REMOVE);
+	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), cremove, -1);
+	gtk_tool_item_set_is_important(cremove, TRUE);
+    gtk_widget_set_sensitive(GTK_WIDGET(cremove), FALSE);
+	g_signal_connect(G_OBJECT(cremove), "clicked", G_CALLBACK(create_condition_edit_temp_remove), NULL);
+		
+	sep = gtk_separator_tool_item_new();
+    gtk_separator_tool_item_set_draw(GTK_SEPARATOR_TOOL_ITEM(sep), FALSE);
+    gtk_tool_item_set_expand(GTK_TOOL_ITEM(sep), TRUE);
+    gtk_toolbar_insert(GTK_TOOLBAR(toolbar), sep, -1);
+    
+	dapply = gtk_tool_button_new_from_stock(GTK_STOCK_APPLY);
+	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), dapply, -1);
+	gtk_tool_item_set_is_important(dapply, TRUE);
+    g_signal_connect(G_OBJECT(dapply), "clicked", G_CALLBACK(save_condition_edit_temp), (void*)type);
+
+ 	dcancel = gtk_tool_button_new_from_stock(GTK_STOCK_CANCEL);
+	gtk_toolbar_insert(GTK_TOOLBAR(toolbar), dcancel, -1);
+	gtk_tool_item_set_is_important(dcancel, TRUE);
+    g_signal_connect(G_OBJECT(dcancel), "clicked", G_CALLBACK(close_condition_edit_temp), G_OBJECT(window));
+    		 	   
     condition_edit_temp_list = gtk_tree_view_new();
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(condition_edit_temp_list), FALSE);
 
     create_condition_edit_temp_init_list(condition_edit_temp_list);
     read_config_exclude_array_temp(condition_edit_temp_list, type);
 
-    // grid for the buttons
-    hgrid = gtk_grid_new();
-    gtk_widget_set_hexpand(hgrid, TRUE);
-    lgrid = gtk_grid_new();
-    gtk_grid_attach(GTK_GRID(hgrid), lgrid, 1, 0, 1, 1);
-    gtk_widget_set_hexpand(lgrid, TRUE);
-    gtk_widget_set_halign(lgrid, GTK_ALIGN_END);
-    mgrid = gtk_grid_new();
-    gtk_grid_attach(GTK_GRID(hgrid), mgrid, 0, 0, 1, 1);
-    gtk_widget_set_hexpand(mgrid, TRUE);
-    gtk_widget_set_halign(mgrid, GTK_ALIGN_END);
-
-    // apply button
-    kbtn = gtk_button_new_with_label(_("Apply"));
-    gtk_button_set_image(GTK_BUTTON(kbtn), gtk_image_new_from_stock("gtk-apply", GTK_ICON_SIZE_BUTTON));
-    gtk_widget_set_margin_end(kbtn, 8);
-    gtk_widget_set_margin_bottom(kbtn, 2);
-    gtk_grid_attach(GTK_GRID(lgrid), kbtn, 0, 0, 1, 1);
-    g_signal_connect(G_OBJECT(kbtn), "clicked", G_CALLBACK(save_condition_edit_temp), (void*)type);
-    // cancel button
-    gbtn = gtk_button_new_with_label(_("Cancel"));
-    gtk_button_set_image(GTK_BUTTON(gbtn), gtk_image_new_from_stock("gtk-cancel", GTK_ICON_SIZE_BUTTON));
-    gtk_widget_set_margin_bottom(gbtn, 2);
-    gtk_grid_attach(GTK_GRID(lgrid), gbtn, 1, 0, 1, 1);
-    g_signal_connect(G_OBJECT(gbtn), "clicked", G_CALLBACK(close_condition_edit_temp), G_OBJECT(window));
-
-    condition_edit_temp_ent = gtk_entry_new();
-    gtk_grid_attach(GTK_GRID(mgrid), condition_edit_temp_ent, 0, 0, 1, 1);
-    gtk_widget_set_margin_end(condition_edit_temp_ent, 8);
-    gtk_widget_set_margin_bottom(condition_edit_temp_ent, 2);
-    g_signal_connect(G_OBJECT(condition_edit_temp_ent), "changed", G_CALLBACK(condition_edit_temp_changed), G_OBJECT(window));
-
-    // apply button
-    pbtn = gtk_button_new_with_label(_("Add"));
-    gtk_button_set_image(GTK_BUTTON(pbtn), gtk_image_new_from_stock("gtk-add", GTK_ICON_SIZE_BUTTON));
-    gtk_widget_set_margin_end(pbtn, 8);
-    gtk_widget_set_margin_bottom(pbtn, 2);
-    gtk_grid_attach(GTK_GRID(mgrid), pbtn, 1, 0, 1, 1);
-    g_signal_connect(G_OBJECT(pbtn), "clicked", G_CALLBACK(create_condition_edit_temp_add), G_OBJECT(window));
-    // cancel button
-    mbtn = gtk_button_new_with_label(_("Remove"));
-    gtk_button_set_image(GTK_BUTTON(mbtn), gtk_image_new_from_stock("gtk-remove", GTK_ICON_SIZE_BUTTON));
-    gtk_widget_set_margin_end(mbtn, 8);
-    gtk_widget_set_margin_bottom(mbtn, 2);
-    gtk_grid_attach(GTK_GRID(mgrid), mbtn, 2, 0, 1, 1);
-    g_signal_connect(G_OBJECT(mbtn), "clicked", G_CALLBACK(create_condition_edit_temp_remove), gtk_tree_view_get_selection(GTK_TREE_VIEW(condition_edit_temp_list)));
-
-    gtk_widget_set_sensitive(pbtn, FALSE);
-    gtk_widget_set_sensitive(mbtn, FALSE);
-
-    g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(condition_edit_temp_list)), "changed", G_CALLBACK(condition_edit_temp_on_changed), mbtn);
+    g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(condition_edit_temp_list)), "changed", G_CALLBACK(condition_edit_temp_on_changed), NULL);
 
 	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollwin), condition_edit_temp_list);
-    gtk_box_pack_start(GTK_BOX(dbox), scrollwin, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(action_area), hgrid, TRUE, TRUE, 0);
-
-    gtk_container_add(GTK_CONTAINER(content_area), dbox);
+    gtk_box_pack_start(GTK_BOX(content_area), scrollwin, TRUE, TRUE, 0);
+	gtk_container_add(GTK_CONTAINER(cedialog), content_area);
     gtk_widget_show_all(cedialog);
     destroy_config();
 }
