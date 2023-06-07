@@ -545,6 +545,7 @@ void create_condition_edit_temp(GtkWidget *widget, const char *type)
 {
     init_config();
     open_config_file();
+    GtkWidget *action_area;
     GtkWidget *content_area;
     GtkWidget *dbox;
     GtkWidget *hgrid;
@@ -552,20 +553,29 @@ void create_condition_edit_temp(GtkWidget *widget, const char *type)
     GtkWidget *mgrid;
     GtkWidget *gbtn;
     GtkWidget *kbtn;
+    GtkWidget *scrollwin;
 
     cedialog = gtk_dialog_new();
     g_signal_connect_swapped(cedialog, "response", G_CALLBACK(gtk_widget_destroy), cedialog);
     content_area = gtk_dialog_get_content_area(GTK_DIALOG(cedialog));
+    action_area = gtk_dialog_get_action_area(GTK_DIALOG(cedialog));
     gtk_window_set_resizable(GTK_WINDOW(cedialog), FALSE);
     gtk_window_set_modal(GTK_WINDOW(cedialog), TRUE);
+    gtk_window_set_transient_for(GTK_WINDOW(cedialog), GTK_WINDOW(window));
     gtk_window_set_title(GTK_WINDOW(cedialog), _("Condition editor"));
+	gtk_window_set_default_size (GTK_WINDOW (cedialog), 300, 100);
+	scrollwin = gtk_scrolled_window_new (NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrollwin), GTK_POLICY_AUTOMATIC,  GTK_POLICY_AUTOMATIC);
+
+
 
     dbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 8);
     gtk_widget_set_margin_bottom(dbox, 5);
     gtk_widget_set_margin_top(dbox, 5);
-    gtk_widget_set_margin_start(dbox, 5);
-    gtk_widget_set_margin_end(dbox, 5);
-
+    gtk_widget_set_margin_start(dbox, 18);
+    gtk_widget_set_margin_end(dbox, 15);
+	gtk_widget_set_size_request(dbox, 300, 200);
+	
     condition_edit_temp_list = gtk_tree_view_new();
     gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(condition_edit_temp_list), FALSE);
 
@@ -588,30 +598,34 @@ void create_condition_edit_temp(GtkWidget *widget, const char *type)
     kbtn = gtk_button_new_with_label(_("Apply"));
     gtk_button_set_image(GTK_BUTTON(kbtn), gtk_image_new_from_stock("gtk-apply", GTK_ICON_SIZE_BUTTON));
     gtk_widget_set_margin_end(kbtn, 8);
+    gtk_widget_set_margin_bottom(kbtn, 2);
     gtk_grid_attach(GTK_GRID(lgrid), kbtn, 0, 0, 1, 1);
     g_signal_connect(G_OBJECT(kbtn), "clicked", G_CALLBACK(save_condition_edit_temp), (void*)type);
     // cancel button
     gbtn = gtk_button_new_with_label(_("Cancel"));
     gtk_button_set_image(GTK_BUTTON(gbtn), gtk_image_new_from_stock("gtk-cancel", GTK_ICON_SIZE_BUTTON));
-    // gtk_widget_set_margin_end(gbtn, 5);
+    gtk_widget_set_margin_bottom(gbtn, 2);
     gtk_grid_attach(GTK_GRID(lgrid), gbtn, 1, 0, 1, 1);
     g_signal_connect(G_OBJECT(gbtn), "clicked", G_CALLBACK(close_condition_edit_temp), G_OBJECT(window));
 
     condition_edit_temp_ent = gtk_entry_new();
     gtk_grid_attach(GTK_GRID(mgrid), condition_edit_temp_ent, 0, 0, 1, 1);
     gtk_widget_set_margin_end(condition_edit_temp_ent, 8);
+    gtk_widget_set_margin_bottom(condition_edit_temp_ent, 2);
     g_signal_connect(G_OBJECT(condition_edit_temp_ent), "changed", G_CALLBACK(condition_edit_temp_changed), G_OBJECT(window));
 
     // apply button
     pbtn = gtk_button_new_with_label(_("Add"));
     gtk_button_set_image(GTK_BUTTON(pbtn), gtk_image_new_from_stock("gtk-add", GTK_ICON_SIZE_BUTTON));
     gtk_widget_set_margin_end(pbtn, 8);
+    gtk_widget_set_margin_bottom(pbtn, 2);
     gtk_grid_attach(GTK_GRID(mgrid), pbtn, 1, 0, 1, 1);
     g_signal_connect(G_OBJECT(pbtn), "clicked", G_CALLBACK(create_condition_edit_temp_add), G_OBJECT(window));
     // cancel button
     mbtn = gtk_button_new_with_label(_("Remove"));
     gtk_button_set_image(GTK_BUTTON(mbtn), gtk_image_new_from_stock("gtk-remove", GTK_ICON_SIZE_BUTTON));
     gtk_widget_set_margin_end(mbtn, 8);
+    gtk_widget_set_margin_bottom(mbtn, 2);
     gtk_grid_attach(GTK_GRID(mgrid), mbtn, 2, 0, 1, 1);
     g_signal_connect(G_OBJECT(mbtn), "clicked", G_CALLBACK(create_condition_edit_temp_remove), gtk_tree_view_get_selection(GTK_TREE_VIEW(condition_edit_temp_list)));
 
@@ -620,8 +634,9 @@ void create_condition_edit_temp(GtkWidget *widget, const char *type)
 
     g_signal_connect(gtk_tree_view_get_selection(GTK_TREE_VIEW(condition_edit_temp_list)), "changed", G_CALLBACK(condition_edit_temp_on_changed), mbtn);
 
-    gtk_box_pack_start(GTK_BOX(dbox), condition_edit_temp_list, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(dbox), hgrid, TRUE, TRUE, 0);
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrollwin), condition_edit_temp_list);
+    gtk_box_pack_start(GTK_BOX(dbox), scrollwin, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(action_area), hgrid, TRUE, TRUE, 0);
 
     gtk_container_add(GTK_CONTAINER(content_area), dbox);
     gtk_widget_show_all(cedialog);
@@ -987,7 +1002,7 @@ void opacity_frame_cb_checked(GtkWidget *widget, gpointer window)
     }
 }
 
-void save_window_type_specific_overrides_edit(GtkWidget *widget, gpointer data)
+void save_window_type_specific_overrides_edit()
 {
     GtkTreeIter iter;
     GtkTreeModel *model;
@@ -1123,13 +1138,6 @@ void save_window_type_specific_overrides_edit(GtkWidget *widget, gpointer data)
     gtk_widget_destroy(wtdialog);
 }
 
-void close_window_type_specific_overrides_edit(GtkWidget *widget, gpointer data)
-{
-    gtk_widget_destroy(wtdialog);
-}
-
-
-
 void create_window_type_specific_overrides_edit(GtkWidget *widget, gpointer data)
 {
     init_config();
@@ -1175,12 +1183,8 @@ void create_window_type_specific_overrides_edit(GtkWidget *widget, gpointer data
 
     config_wintype wintypeval = read_config_wintypes_value(window_type_specific_overrides_types_actualnames[cval]);
 
-    wtdialog = gtk_dialog_new();
-    g_signal_connect_swapped(wtdialog, "response", G_CALLBACK(gtk_widget_destroy), wtdialog);
+    wtdialog = gtk_dialog_new_with_buttons( _("Override editor"), GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_STOCK_APPLY, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT, NULL);	
     content_area = gtk_dialog_get_content_area(GTK_DIALOG(wtdialog));
-    gtk_window_set_title(GTK_WINDOW(wtdialog), _("Override editor"));
-    gtk_window_set_resizable(GTK_WINDOW(wtdialog), FALSE);
-    gtk_window_set_modal(GTK_WINDOW(wtdialog), TRUE);
 
     dbbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_widget_set_margin_bottom(dbbox, 5);
@@ -1416,31 +1420,12 @@ void create_window_type_specific_overrides_edit(GtkWidget *widget, gpointer data
 
     gtk_box_pack_start(GTK_BOX(dbbox), dbox, TRUE, TRUE, 0);
 
-    // grid for the buttons
-    hgrid = gtk_grid_new();
-    gtk_widget_set_hexpand(hgrid, TRUE);
-    lgrid = gtk_grid_new();
-    gtk_grid_attach(GTK_GRID(hgrid), lgrid, 1, 0, 1, 1);
-    gtk_widget_set_hexpand(lgrid, TRUE);
-    gtk_widget_set_halign(lgrid, GTK_ALIGN_END);
-
-    // apply button
-    kbtn = gtk_button_new_with_label(_("Apply"));
-    gtk_button_set_image(GTK_BUTTON(kbtn), gtk_image_new_from_stock("gtk-apply", GTK_ICON_SIZE_BUTTON));
-    gtk_widget_set_margin_end(kbtn, 8);
-    gtk_grid_attach(GTK_GRID(lgrid), kbtn, 0, 0, 1, 1);
-    g_signal_connect(G_OBJECT(kbtn), "clicked", G_CALLBACK(save_window_type_specific_overrides_edit), G_OBJECT(window));
-    // cancel button
-    gbtn = gtk_button_new_with_label(_("Cancel"));
-    gtk_button_set_image(GTK_BUTTON(gbtn), gtk_image_new_from_stock("gtk-cancel", GTK_ICON_SIZE_BUTTON));
-    gtk_widget_set_margin_end(gbtn, 5);
-    gtk_grid_attach(GTK_GRID(lgrid), gbtn, 1, 0, 1, 1);
-    g_signal_connect(G_OBJECT(gbtn), "clicked", G_CALLBACK(close_window_type_specific_overrides_edit), G_OBJECT(window));
-
-    gtk_box_pack_start(GTK_BOX(dbbox), hgrid, TRUE, TRUE, 0);
-
     gtk_container_add(GTK_CONTAINER(content_area), dbbox);
     gtk_widget_show_all(wtdialog);
+	gint result = gtk_dialog_run(GTK_DIALOG(wtdialog));
+    if (result == GTK_RESPONSE_ACCEPT) {
+		save_window_type_specific_overrides_edit();
+	}
     destroy_config();
 }
 
@@ -1719,7 +1704,7 @@ void ser_on_change(GtkWidget *widget, gpointer label)
     gtk_widget_queue_draw(shadow_page_shadow_exclude_region_dr);
 }
 
-void ser_window_save(GtkWidget *widget, gpointer data)
+void ser_window_save()
 {
     init_config();
     open_config_file();
@@ -1736,10 +1721,6 @@ void ser_window_save(GtkWidget *widget, gpointer data)
     gtk_widget_destroy(shadow_page_shadow_exclude_region_window);
 }
 
-void ser_window_cancel(GtkWidget *widget, gpointer data)
-{
-    gtk_widget_destroy(shadow_page_shadow_exclude_region_window);
-}
 
 void ser_cb_clicked(GtkWidget *widget, gpointer data)
 {
@@ -1773,12 +1754,9 @@ void create_shadow_page_ser_window(GtkWidget *widget, gpointer data)
     shadow_ser_preview_gdk = convert_picom_rect_to_normal(shadow_ser_preview_se_geo);
 
     // dialog setup
-    shadow_page_shadow_exclude_region_window = gtk_dialog_new();
-    g_signal_connect_swapped(shadow_page_shadow_exclude_region_window, "response", G_CALLBACK(gtk_widget_destroy), shadow_page_shadow_exclude_region_window);
+    shadow_page_shadow_exclude_region_window = gtk_dialog_new_with_buttons(_("Shadow cropping region editor"), GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_STOCK_APPLY, GTK_RESPONSE_ACCEPT, GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT, NULL);	
     content_area = gtk_dialog_get_content_area(GTK_DIALOG(shadow_page_shadow_exclude_region_window));
-    gtk_window_set_modal(GTK_WINDOW(shadow_page_shadow_exclude_region_window), TRUE);
-    gtk_window_set_title(GTK_WINDOW(shadow_page_shadow_exclude_region_window), _("Shadow cropping region editor"));
-
+    
     // box and preview widgets
     GtkWidget *cbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     shadow_page_shadow_exclude_region_dr = gtk_drawing_area_new();
@@ -1840,7 +1818,6 @@ void create_shadow_page_ser_window(GtkWidget *widget, gpointer data)
         csel = 3;
     }
 
-    printf("%d\n", csel);
     gtk_combo_box_set_active(GTK_COMBO_BOX(shadow_page_shadow_exclude_pos), csel);
     g_signal_connect(shadow_page_shadow_exclude_pos, "changed", G_CALLBACK(ser_on_change), NULL);
 
@@ -1861,7 +1838,6 @@ void create_shadow_page_ser_window(GtkWidget *widget, gpointer data)
     gtk_widget_set_margin_start(shadow_page_shadow_exclude_h, 100);
     gtk_widget_set_margin_end(shadow_page_shadow_exclude_h, 8);
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(shadow_page_shadow_exclude_h), (double)shadow_ser_preview_se_geo.x);
-    printf("%d\n", shadow_ser_preview_se_geo.x);
     gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_adj_grid), shadow_page_shadow_exclude_h_label, 0, 1, 1, 1);
     gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_adj_grid), shadow_page_shadow_exclude_h, 1, 1, 1, 1);
     g_signal_connect(shadow_page_shadow_exclude_h, "value-changed", G_CALLBACK(ser_on_change), NULL);
@@ -1905,40 +1881,20 @@ void create_shadow_page_ser_window(GtkWidget *widget, gpointer data)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ser_cb), FALSE);
     }
 
-    // grid for the buttons
-    shadow_page_shadow_exclude_btn_cgrid = gtk_grid_new();
-    gtk_widget_set_hexpand(shadow_page_shadow_exclude_btn_cgrid, TRUE);
-    shadow_page_shadow_exclude_btn_grid = gtk_grid_new();
-    gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_btn_cgrid), shadow_page_shadow_exclude_btn_grid, 1, 0, 1, 1);
-    gtk_widget_set_hexpand(shadow_page_shadow_exclude_btn_grid, TRUE);
-    gtk_widget_set_halign(shadow_page_shadow_exclude_btn_grid, GTK_ALIGN_END);
-
-    // apply button
-    shadow_page_shadow_exclude_apply_btn = gtk_button_new_with_label(_("Apply"));
-    gtk_button_set_image(GTK_BUTTON(shadow_page_shadow_exclude_apply_btn), gtk_image_new_from_stock("gtk-apply", GTK_ICON_SIZE_BUTTON));
-    gtk_widget_set_margin_bottom(shadow_page_shadow_exclude_apply_btn, 3);
-    gtk_widget_set_margin_end(shadow_page_shadow_exclude_apply_btn, 8);
-    gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_btn_grid), shadow_page_shadow_exclude_apply_btn, 0, 0, 1, 1);
-    gtk_widget_set_halign(bsgrid, GTK_ALIGN_END);
-    g_signal_connect(G_OBJECT(shadow_page_shadow_exclude_apply_btn), "clicked", G_CALLBACK(ser_window_save), G_OBJECT(window));
-
-    // cancel button
-    shadow_page_shadow_exclude_cancel_btn = gtk_button_new_with_label(_("Cancel"));
-    gtk_button_set_image(GTK_BUTTON(shadow_page_shadow_exclude_cancel_btn), gtk_image_new_from_stock("gtk-cancel", GTK_ICON_SIZE_BUTTON));
-    gtk_widget_set_margin_bottom(shadow_page_shadow_exclude_cancel_btn, 3);
-    gtk_widget_set_margin_end(shadow_page_shadow_exclude_cancel_btn, 8);
-    gtk_grid_attach(GTK_GRID(shadow_page_shadow_exclude_btn_grid), shadow_page_shadow_exclude_cancel_btn, 1, 0, 1, 1);
-    g_signal_connect(G_OBJECT(shadow_page_shadow_exclude_cancel_btn), "clicked", G_CALLBACK(ser_window_cancel), G_OBJECT(window));
-
     // box setup
     gtk_box_pack_start(GTK_BOX(cbox), ser_cb, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(cbox), shadow_page_shadow_exclude_region_dr, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(cbox), shadow_page_shadow_exclude_adj_grid, TRUE, TRUE, 0);
-    gtk_box_pack_start(GTK_BOX(cbox), shadow_page_shadow_exclude_btn_cgrid, TRUE, TRUE, 0);
 
     gtk_container_add(GTK_CONTAINER(content_area), cbox);
-    gtk_widget_show_all(shadow_page_shadow_exclude_region_window);
+	gtk_widget_show_all(shadow_page_shadow_exclude_region_window);
     destroy_config();
+	gint dialog_result = gtk_dialog_run(GTK_DIALOG(shadow_page_shadow_exclude_region_window));
+	if (dialog_result == GTK_RESPONSE_ACCEPT) {
+		ser_window_save();
+	}
+	gtk_widget_destroy(shadow_page_shadow_exclude_region_window);
+
 }
 
 void create_shadow_page_cb_checked(GtkWidget *widget, gpointer window)
